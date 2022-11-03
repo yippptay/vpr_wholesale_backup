@@ -55,13 +55,13 @@
     text-overflow:"";
     outline:0;
     cursor:pointer;
-    padding-left:10px!important;
     max-width:100%
 }
 .nm-easywholesale-form{
     display:flex;
     flex-direction:column;
-    padding:10px
+    padding-left: 50px;
+    padding-right: 50px;
 }
 .nm-easywholesale-header{
     display:flex;
@@ -80,7 +80,6 @@
     display:flex;
     flex-direction:row;
     align-items:end;
-    margin-right:15px;
     height:40px;
     align-items:center;
     max-width:30%;
@@ -113,21 +112,23 @@
     margin-bottom:10px;
     overflow:auto;
     border-top:2px solid;
-    padding-right:15px
+    padding-right:0px
 }
 .nm-easywholesale-table-page{
     overflow:visible
 }
 .nm-easywholesale-table-product{
-    border-bottom:2px solid
+    border-bottom:2px solid;
 }
 .nm-easywholesale-item{
     display:flex;
     flex-direction:row;
     align-items:center;
-    border-top:1px solid;
-    padding-top:7px;
-    padding-bottom:7px
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    padding-left: 7px;
+    padding-top:0px;
+    padding-bottom:0px
 }
 .nm-easywholesale-name-and-price{
     display:flex;
@@ -158,6 +159,8 @@
 }
 .nm-easywholesale-qty-container{
     display:flex;
+    border-color: #d8d8d8 !important;
+    border-right: 1px solid;
     flex-direction:row;
     align-items:center;
     margin-left:auto;
@@ -225,10 +228,6 @@
     width:10px;
     transform:rotate(270deg)
 }
-.nm-noborder{
-    border-top:0!important;
-    border-bottom:0!important
-}
 .nm-wholesale-table-under-footer,.nm-wholesale-table-under-footer-collapse{
     border-bottom:2px solid;
     text-align:left;
@@ -271,6 +270,7 @@
     padding-left:10px
 }
 .nm-wholesale-header-title{
+    padding-bottom: 7px;
     width:-webkit-fill-available;
     font-size:initial
 }
@@ -955,7 +955,35 @@
                           {% endif %}
 
                           <div class="nm-wholesale-right-block">   
-                            <div class="nm-wholesale-header-title" data-inventory="{{ last_variant.inventory_quantity }}" data-countvar="{{ count_variant2 }}">{% if nm_easywholesale_setLinkOnProductTitle %}<a href="/products/{{ product_temp.handle }}" class="nm-easywholesale-linktitle">{% endif %}<strong>{% if nm_easywholesale_callback_title %}{% include "wholesale-page-callback-title" %}{% else %}{{ product_temp.title }}{% if last_variant.sku != null and last_variant.sku != "" and nm_easywholesale_showProductSku %} <small>({{ last_variant.sku }})</small>{% endif %}{% if last_variant.barcode != null and last_variant.barcode != "" and nm_easywholesale_showProductBarcode %} <small>({{ last_variant.barcode }})</small>{% endif %}{% endif %}</strong>{% if nm_easywholesale_setLinkOnProductTitle %}</a>{% endif %}{% if count_variant2 == 1 and last_variant.title == "Default Title" %}{% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %} <small>(TEMP1: {% if last_variant.inventory_quantity > nm_easywholesale_limitStock %}{{ nm_easywholesale_limitStock }}+{% else %}{{ last_variant.inventory_quantity }}{% endif %})</small>{% endif %}{% endif %}{% if nm_easywholesale_showProductDescription %}{% assign product_desc_parts = product_temp.description | split: "<!--for_easywholesale-->" %}<br><small>{{ product_desc_parts[1] }}</small>{% endif %}</div>
+                            <div class="nm-wholesale-header-title" data-inventory="{{ last_variant.inventory_quantity }}" data-countvar="{{ count_variant2 }}">
+                              {% if nm_easywholesale_setLinkOnProductTitle %}
+                                <a href="/products/{{ product_temp.handle }}" class="nm-easywholesale-linktitle">
+                                {% endif %}
+                                <strong>
+                                  {% if nm_easywholesale_callback_title %}
+                                    {% include "wholesale-page-callback-title" %}
+                                  {% else %}
+                                    {{ product_temp.title }}{% if last_variant.sku != null and last_variant.sku != "" and nm_easywholesale_showProductSku %}
+                                      <small>({{ last_variant.sku }})</small>
+                                    {% endif %}
+                                    {% if last_variant.barcode != null and last_variant.barcode != "" and nm_easywholesale_showProductBarcode %}
+                                      <small>({{ last_variant.barcode }})</small>
+                                    {% endif %}
+                                  {% endif %}
+                                </strong>
+                                {% if nm_easywholesale_setLinkOnProductTitle %}
+                                </a>
+                              {% endif %}
+                              {% if count_variant2 == 1 and last_variant.title == "Default Title" %}
+                                {% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+                                  <small><i>In Stock</i></small>
+                                {% endif %}
+                              {% endif %}
+                              {% if nm_easywholesale_showProductDescription %}
+                                {% assign product_desc_parts = product_temp.description | split: "<!--for_easywholesale-->" %}<br><small>{{ product_desc_parts[1] }}</small>
+                              {% endif %}
+                            </div>
+                            
                               {% if nm_easywholesale_showPrices %}
                                 {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
 
@@ -969,7 +997,7 @@
                                     {% endcapture %}
                                   {% endif %}
 
-                                  <div class="nm-wholesale-header-price">
+                                  {%- comment -%} <div class="nm-wholesale-header-price">
                                     <span
                                       {% if count_variant2 == 1 and last_variant.title == "Default Title" %}
                                         class="span_one_variant
@@ -991,7 +1019,7 @@
                                         {{ product_temp_price_min | money }} - {{ product_temp_price_max | money }}
                                       {% endif %}
                                     </span>
-                                  </div>
+                                  </div> {%- endcomment -%}
                                 {% endunless %}
                               {% endif %}
                             </div>
@@ -1018,9 +1046,9 @@
 
                                   <div class="nm-easywholesale-qty-container nm-easywholesale-qty-container-one">
                                     <div class="nm-easywholesale-price nm-primary-color" data-priceid="{{ last_variant.id }}" style="font-size: initial; display: none;">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}{{ variant_price | money }}{% endif %}{% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %} <strike>{{ variant.compare_at_price | money }}</strike>{% endif %}{{ nm_easywholesale_textAfterPrice }}</div>
-                                    <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div>
+                                    {%- comment -%} <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div> {%- endcomment -%}
                                     <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
-                                    <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div>
+                                    {%- comment -%} <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div> {%- endcomment -%}
                                   </div>
                                 {% endunless %}
 
@@ -1042,7 +1070,7 @@
                               style="display: none;"
                             {% endif %}>
 
-                            <div class="nm-easywholesale-header nm-easywholesale-header-page nm-secondary-border-color" id="nm-easywholesale-all-filter-{{ product_temp.id }}">
+                            {%- comment -%} <div class="nm-easywholesale-header nm-easywholesale-header-page nm-secondary-border-color" id="nm-easywholesale-all-filter-{{ product_temp.id }}">
                               {% assign count_options = product_temp.options_with_values.size %}
                               {% assign t_count = 0 %}
 
@@ -1051,6 +1079,7 @@
                                 {% if product_option.values.size > 1 %}     
 
                                   <div class="nm-easywholesale-select-container">
+                                    
                                     <select data-id="{{ product_temp.id }}" class="nm-wholesale-filter-{{ product_temp.id }} nm-wholesale-filter nm-primary-color" data-option="{{ product_option.name }}"
                                       {% if t_count != count_options %}
                                         style="padding-right: 15px !important"
@@ -1058,11 +1087,12 @@
                                         style="padding-right: 15px !important"
                                       {% endif %}
                                     >
-                                      <option data-text="All" value="all_variants">TEMP2</option>
+                                      <option data-text="All" value="all_variants"><strong>Nicotine Amounts</strong></option>
                                       {% for value in product_option.values %}
                                         <option value="{{ value }}">{{ value }}</option>
                                       {% endfor %}
                                     </select>
+
                                     <span class="nm-svg"
                                       {% if t_count == count_options %}
                                         style="position: relative; right: 7px;"
@@ -1072,10 +1102,11 @@
                                         <path d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"></path>
                                       </svg>
                                     </span>
+
                                   </div>
                                 {% endif %}
                               {% endfor %}
-                            </div>
+                            </div> {%- endcomment -%}
 
                             <div class="nm-easywholesale-table nm-easywholesale-table-page nm-secondary-border-color" id="nm-wholesale-table-body-{{ product_temp.id }}"
                               {% if nm_easywholesale_variant_as_product and count_variant2 > 1 or count_variant2 == 1 and last_variant.title != "Default Title" %}
@@ -1163,15 +1194,8 @@
                                           {% endif %}
 
                                           {% if variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
-                                            <small>
-                                              (TEMP1:
-                                              {% if variant.inventory_quantity > nm_easywholesale_limitStock %}
-                                                {{ nm_easywholesale_limitStock }}+
-                                              {% else %}
-                                                {{ variant.inventory_quantity }}
-                                              {% endif %}
-                                              )
-                                            </small>
+                                            <small><i>
+                                              In Stock</i></small>
                                           {% endif %}
 
                                           {% if nm_easywholesale_setLinkOnVariantTitle %}
@@ -1214,9 +1238,9 @@
                                         {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
                                           <div class="nm-easywholesale-qty-container">
 
-                                            <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">
+                                            {%- comment -%} <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">
                                               &minus;
-                                            </div>
+                                            </div> {%- endcomment -%}
 
                                             <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]"
                                             
@@ -1224,9 +1248,9 @@
                                               {% include "wholesale-page-callback-quantity" %}
                                             {% endif %}/>
 
-                                            <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">
+                                            {%- comment -%} <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">
                                               &plus;
-                                            </div>
+                                            </div> {%- endcomment -%}
                                           </div>
                                         {% endunless %}
                                       {% else %}
@@ -1322,8 +1346,36 @@
                    {% if nm_easywholesale_setLinkOnProductFoto %}<a href="/products/{{ product_temp.handle }}" class="nm-easywholesale-linkfoto"><img src="{{ product_temp.featured_image | img_url: '240x' }}" alt="" class="nm-wholesale-header-image-img"></a>{% else %}<a href="javascript:void(0);" class="nm-easywholesale-linkfoto nm-easywholesale-popupfoto" data-img="{{ product_temp.featured_image | img_url: '1600x1600' }}"><img src="{{ product_temp.featured_image | img_url: '240x' }}" alt="" class="nm-wholesale-header-image-img"></a>{% endif %} 
                 </div>
                 {% endif %}
+                
                 <div class="nm-wholesale-right-block" data-inventory="{{ last_variant.inventory_quantity }}" data-countvar="{{ count_variant2 }}">   
-                      <div class="nm-wholesale-header-title">{% if nm_easywholesale_setLinkOnProductTitle %}<a href="/products/{{ product_temp.handle }}" class="nm-easywholesale-linktitle">{% endif %}<strong>{% if nm_easywholesale_callback_title %}{% include "wholesale-page-callback-title" %}{% else %}{{ product_temp.title }}{% if last_variant.sku != null and last_variant.sku != "" and nm_easywholesale_showProductSku %} <small>({{ last_variant.sku }})</small>{% endif %}{% if last_variant.barcode != null and last_variant.barcode != "" and nm_easywholesale_showProductBarcode %} <small>({{ last_variant.barcode }})</small>{% endif %}{% endif %}</strong>{% if nm_easywholesale_setLinkOnProductTitle %}</a>{% endif %}{% if count_variant2 == 1 and last_variant.title == "Default Title" %}{% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %} <small>(TEMP1: {% if last_variant.inventory_quantity > nm_easywholesale_limitStock %}{{ nm_easywholesale_limitStock }}+{% else %}{{ last_variant.inventory_quantity }}{% endif %})</small>{% endif %}{% endif %}{% if nm_easywholesale_showProductDescription %}{% assign product_desc_parts = product_temp.description | split: "<!--for_easywholesale-->" %}<br><small>{{ product_desc_parts[1] }}</small>{% endif %}</div>
+                      <div class="nm-wholesale-header-title">
+                        {% if nm_easywholesale_setLinkOnProductTitle %}
+                          <a href="/products/{{ product_temp.handle }}" class="nm-easywholesale-linktitle">
+                          {% endif %}
+                          <strong>
+                            {% if nm_easywholesale_callback_title %}
+                              {% include "wholesale-page-callback-title" %}
+                            {% else %}
+                              {{ product_temp.title }}{% if last_variant.sku != null and last_variant.sku != "" and nm_easywholesale_showProductSku %}
+                                <small>({{ last_variant.sku }})</small>
+                              {% endif %}
+                              {% if last_variant.barcode != null and last_variant.barcode != "" and nm_easywholesale_showProductBarcode %}
+                                <small>({{ last_variant.barcode }})</small>
+                              {% endif %}
+                            {% endif %}
+                          </strong>
+                          {% if nm_easywholesale_setLinkOnProductTitle %}
+                          </a>
+                        {% endif %}
+                        {% if count_variant2 == 1 and last_variant.title == "Default Title" %}
+                          {% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+                            <small><i>In Stock</i></small>
+                          {% endif %}
+                        {% endif %}
+                        {% if nm_easywholesale_showProductDescription %}
+                          {% assign product_desc_parts = product_temp.description | split: "<!--for_easywholesale-->" %}<br><small>{{ product_desc_parts[1] }}</small>
+                        {% endif %}
+                      </div>
                       
                       {% if nm_easywholesale_showPrices %}
                         {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
@@ -1363,9 +1415,9 @@
                                      
                                       <div class="nm-easywholesale-qty-container nm-easywholesale-qty-container-one">
                                         <div class="nm-easywholesale-price nm-primary-color" data-priceid="{{ last_variant.id }}" style="font-size: initial; display: none;">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}{{ variant_price | money }}{% endif %}{% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %} <strike>{{ variant.compare_at_price | money }}</strike>{% endif %}{{ nm_easywholesale_textAfterPrice }}</div>
-                                        <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div>
+                                        {%- comment -%} <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div> {%- endcomment -%}
                                         <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
-                                        <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div>
+                                        {%- comment -%} <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div> {%- endcomment -%}
                                       </div> 
                                         {% endunless %}
                                       {% else %}
@@ -1480,7 +1532,23 @@
                                         {% endif %} 
                                         <div class="nm-easywholesale-name-and-price-only"{% if nm_easywholesale_variant_as_product %} style="margin-left: 10px;"{% endif %}>
                                         
-                                            <div class="nm-easywholesale-name nm-primary-color">{% if nm_easywholesale_setLinkOnVariantTitle %}<a href="/products/{{ product_temp.handle }}?variant={{ variant.id }}" class="nm-easywholesale-linktitle">{% endif %}{{ variant_title }}{% if variant.sku != null and variant.sku != "" and nm_easywholesale_showProductSku %} <small>({{ variant.sku }})</small>{% endif %}{% if variant.barcode != null and variant.barcode != "" and nm_easywholesale_showProductBarcode %} <small>({{ variant.barcode }})</small>{% endif %}{% if variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %} <small>(TEMP1: {% if variant.inventory_quantity > nm_easywholesale_limitStock %}{{ nm_easywholesale_limitStock }}+{% else %}{{ variant.inventory_quantity }}{% endif %})</small>{% endif %}{% if nm_easywholesale_setLinkOnVariantTitle %}</a>{% endif %}</div>
+                                            <div class="nm-easywholesale-name nm-primary-color">
+                                              {% if nm_easywholesale_setLinkOnVariantTitle %}
+                                                <a href="/products/{{ product_temp.handle }}?variant={{ variant.id }}" class="nm-easywholesale-linktitle">
+                                                {% endif %}
+                                                {{ variant_title }}{% if variant.sku != null and variant.sku != "" and nm_easywholesale_showProductSku %}
+                                                  <small>({{ variant.sku }})</small>
+                                                {% endif %}
+                                                {% if variant.barcode != null and variant.barcode != "" and nm_easywholesale_showProductBarcode %}
+                                                  <small>({{ variant.barcode }})</small>
+                                                {% endif %}
+                                                {% if variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+                                                  <small><i>In Stock</i></small>
+                                                {% endif %}
+                                                {% if nm_easywholesale_setLinkOnVariantTitle %}
+                                                </a>
+                                              {% endif %}
+                                            </div>
                                             
                                     {% assign variant_price = variant.price %}           
                                     {% if nm_easywholesale_callback_price %}{% capture the_snippet_content %}{% include "wholesale-page-callback-price", typ: "variant" %}{% endcapture %}{% endif %} 
@@ -1493,9 +1561,9 @@
                                       {% if nm_easywholesale_showPrices %}
                                         {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
                                       <div class="nm-easywholesale-qty-container">
-                                        <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">&minus;</div>
+                                        {%- comment -%} <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">&minus;</div> {%- endcomment -%}
                                         <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
-                                        <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">&plus;</div>
+                                        {%- comment -%} <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">&plus;</div> {%- endcomment -%}
                                       </div>
                                         {% endunless %}
                                       {% else %}

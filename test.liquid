@@ -1,0 +1,22 @@
+<div class="nm-easywholesale-name nm-primary-color">
+  {% if nm_easywholesale_setLinkOnVariantTitle %}
+    <a href="/products/{{ product_temp.handle }}?variant={{ variant.id }}" class="nm-easywholesale-linktitle">
+    {% endif %}
+    {{ variant_title }}{% if variant.sku != null and variant.sku != "" and nm_easywholesale_showProductSku %}
+      <small>({{ variant.sku }})</small>
+    {% endif %}
+    {% if variant.barcode != null and variant.barcode != "" and nm_easywholesale_showProductBarcode %}
+      <small>({{ variant.barcode }})</small>
+    {% endif %}
+    {% if variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+      <small>In Stock:
+        {% if variant.inventory_quantity > nm_easywholesale_limitStock %}
+          {{ nm_easywholesale_limitStock }}+
+        {% else %}
+          {{ variant.inventory_quantity }}{% endif %}
+      </small>
+    {% endif %}
+    {% if nm_easywholesale_setLinkOnVariantTitle %}
+    </a>
+  {% endif %}
+</div>
