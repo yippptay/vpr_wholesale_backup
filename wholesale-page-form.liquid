@@ -17,7 +17,6 @@ mark {
 .in-stock {
   display: flex;
   font-size: small;
-  color: green;
   white-space: nowrap;
 }
  .nm-wholesale-btn-add-to-cart {
@@ -70,8 +69,8 @@ mark {
 .nm-easywholesale-form{
     display:flex;
     flex-direction:column;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 75px;
+    padding-right: 75px;
     padding-top: 20px;
 }
 .nm-easywholesale-header{
@@ -120,12 +119,13 @@ mark {
 .nm-easywholesale-table{
     display:flex;
     flex-direction:column;
-    margin-bottom:10px;
     overflow:auto;
     border-top:1px solid;
     border-color: #d8d8d8;
-    padding-right:0px
+    padding-right:0px;
+    border-bottom: 2px solid #e35432;
 }
+
 .nm-easywholesale-table-page{
     width: -webkit-fill-available;
     overflow:visible
@@ -145,8 +145,8 @@ mark {
     padding-bottom:0px
 }
 
-.nm-easywholesale-item:nth-child(even){
-  background-color: #d3d3d3;
+.nm-easywholesale-item.nm-layout-border-color:nth-child(even){
+  background-color:rgba(179, 179, 179, 0.2);
 }
 
 .nm-easywholesale-name-and-price{
@@ -281,7 +281,6 @@ mark {
 .nm-wholesale-title-foto{
     display:flex;
     flex-direction:row;
-    margin-top:1px;
     align-items:center
 }
 .nm-wholesale-header-price{
@@ -290,7 +289,6 @@ mark {
     padding-left:10px
 }
 .nm-wholesale-header-title{
-    padding-bottom: 7px;
     width:-webkit-fill-available;
     font-size:initial
 }
@@ -866,7 +864,7 @@ mark {
 
               {%- comment -%} TABLE FOR HEADER {%- endcomment -%}
 
-        <div class="nm-easywholesale-item nm-layout-border-color" style="border-top: 1px solid;">
+        <div class="nm-easywholesale-item nm-layout-border-color" style="border-top: 1px solid; color: white; background-color: #e35432;">
 
           <div class="nm-easywholesale-name" style="width: 50%">
             <strong>
@@ -880,7 +878,7 @@ mark {
             </strong>
           </div>
 
-          <div class="in-stock" style="width: 12.5%; justify-content: center; color: #8a8f93">
+          <div class="in-stock" style="width: 12.5%; justify-content: center">
             <strong>
               STOCK
             </strong>
