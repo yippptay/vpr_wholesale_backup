@@ -1,14 +1,91 @@
-<div class="nm-easywholesale-qty-container nm-easywholesale-qty-container-one">
-  <div class="nm-easywholesale-price nm-primary-color" data-priceid="{{ last_variant.id }}" style="font-size: initial; display: none;">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
-      {{ variant_price | money }}{% endif %}
-    {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
-      <strike>{{ variant.compare_at_price | money }}</strike>
+<div class="nm-easywholesale-item nm-layout-border-color nm-wholesale-table-item-{{ product_temp.id }}" data-option1="{{ variant.option1 }}" data-option2="{{ variant.option2 }}" data-option3="{{ variant.option3 }}" data-sku="{{ variant.sku }}" data-inventory="{{ variant.inventory_quantity }}">
+
+  <div class="nm-easywholesale-name-and-price" id="nm-easywholesale-name-and-price-{{ variant.id }}">
+    {% if variant.image and nm_easywholesale_showVariantImage and nm_easywholesale_variant_as_product %}
+      <div class="nm-easywholesale-img" style="width:80px; height: 80px;">
+        <a href="javascript:void(0);" class="nm-easywholesale-linkfoto nm-easywholesale-popupfoto" data-img="{{ variant.image | img_url: '1600x1600' }}"><img src="{{ variant.image | img_url: '80x80' }}"></a>
+      </div>
+    {% elsif variant.image and nm_easywholesale_showVariantImage %}
+      <div class="nm-easywholesale-img">
+        <a href="javascript:void(0);" class="nm-easywholesale-linkfoto nm-easywholesale-popupfoto" data-img="{{ variant.image | img_url: '1600x1600' }}"><img src="{{ variant.image | img_url: '150x150' }}"></a>
+      </div>
+    {% else %}
+      {% if set_foto == 1 %}
+        {% if nm_easywholesale_variant_as_product %}
+          <div class="nm-easywholesale-img" style="width:80px; height: 80px;">
+            <div style="width: 80px !important;"></div>
+          </div>
+        {% else %}
+          <div class="nm-easywholesale-img"></div>
+        {% endif %}
+      {% endif %}
     {% endif %}
-    {{ nm_easywholesale_textAfterPrice }}</div>
-  {%- comment -%}
-    <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div>
-  {%- endcomment -%}
-  <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>{%- comment -%}
-    <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div>
-  {%- endcomment -%}
+    <div class="nm-easywholesale-name-and-price-only" {% if nm_easywholesale_variant_as_product %} style="margin-left: 10px;"{% endif %}>
+
+      <div class="nm-easywholesale-name nm-primary-color">
+
+        {% if nm_easywholesale_setLinkOnVariantTitle %}
+          <a href="/products/{{ product_temp.handle }}?variant={{ variant.id }}" class="nm-easywholesale-linktitle">
+          {% endif %}
+          {{ variant_title }}{% if variant.sku != null and variant.sku != "" and nm_easywholesale_showProductSku %}
+            <small>({{ variant.sku }})</small>
+          {% endif %}
+          {% if variant.barcode != null and variant.barcode != "" and nm_easywholesale_showProductBarcode %}
+            <small>({{ variant.barcode }})</small>
+          {% endif %}
+          {% if nm_easywholesale_setLinkOnVariantTitle %}
+          </a>
+        {% endif %}
+      </div>
+
+      {% assign variant_price = variant.price %}
+      {% if nm_easywholesale_callback_price %}
+        {% capture the_snippet_content %}
+          {% include "wholesale-page-callback-price", typ: "variant" %}{% endcapture %}
+      {% endif %}
+
+      {% if nm_easywholesale_showPrices %}
+        {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
+          <div class="nm-easywholesale-price {% if variant.inventory_quantity <= 0 and variant.available == false %}nm-price-outstock{% endif %} nm-primary-color" data-priceid="{{ variant.id }}">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
+              {{ variant_price | money }}{% endif %}
+            {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
+              <strike>{{ variant.compare_at_price | money }}</strike>
+            {% endif %}
+            {{ nm_easywholesale_textAfterPrice }}</div>
+        {% endunless %}
+      {% endif %}
+    </div>
+  </div>
+
+  {% unless count_variant2 == 1 and last_variant.title == "Default Title" %}
+
+    {% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+      <div class="in-stock">
+        <strong>
+          <i>
+            <mark>&nbsp;&nbsp;&nbsp;In Stock&nbsp;&nbsp;&nbsp;</mark>
+          </i>
+        </strong>
+      </div>
+    {% endif %}
+
+
+    {% if nm_easywholesale_showPrices %}
+      {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
+        <div class="nm-easywholesale-qty-container">
+          {%- comment -%}
+            <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">&minus;</div>
+          {%- endcomment -%}
+          <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>{%- comment -%}
+            <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">&plus;</div>
+          {%- endcomment -%}
+        </div>
+      {% endunless %}
+    {% else %}
+      <div class="nm-easywholesale-qty-container nm-easywholesale-nonlogged-text">
+        <a href="/account/login">login to see price</a>
+      </div>
+    {% endif %}
+  {% endunless %}
+
 </div>
