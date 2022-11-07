@@ -1127,7 +1127,8 @@
                                     {%- comment -%}
                                       <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div>
                                     {%- endcomment -%}
-                                    <input placeholder="0" type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>{%- comment -%}
+                                    <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
+                                    {%- comment -%}
                                       <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div>
                                     {%- endcomment -%}
                                   </div>
@@ -1335,7 +1336,7 @@
                                               &minus;
                                             </div> {%- endcomment -%}
 
-                                            <input placeholder="0" type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]"
+                                            <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]"
                                             
                                             {% if nm_easywholesale_callback_quantity %}
                                               {% include "wholesale-page-callback-quantity" %}
@@ -1347,7 +1348,7 @@
                                           </div>
                                         {% endunless %}
                                       {% else %}
-                                        <div class="nm-easywholesale-qty-container nm-easywholesale-nonlogged-text">
+                                        <div class="nm-easywholesale-qty-container nm-easywholesale-nonlogged-text" style="padding-right: 7px">
                                         <a href="/account/login">login to see price</a>
                                         </div> 
                                       {% endif %}
@@ -1539,7 +1540,7 @@
                                       <div class="nm-easywholesale-qty-container nm-easywholesale-qty-container-one">
                                         <div class="nm-easywholesale-price nm-primary-color" data-priceid="{{ last_variant.id }}" style="font-size: initial; display: none;">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}{{ variant_price | money }}{% endif %}{% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %} <strike>{{ variant.compare_at_price | money }}</strike>{% endif %}{{ nm_easywholesale_textAfterPrice }}</div>
                                         {%- comment -%} <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div> {%- endcomment -%}
-                                        <input placeholder="0" type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
+                                        <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>
                                         {%- comment -%} <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div> {%- endcomment -%}
                                           {% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
                                             <div class="in-stock"">
@@ -1720,7 +1721,7 @@
                                                   {%- comment -%}
                                                     <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-decrease-nm-{{ variant.id }}">&minus;</div>
                                                   {%- endcomment -%}
-                                                  <input placeholder="0" type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>{%- comment -%}
+                                                  <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ variant.id }}" data-price="{{ variant_price }}" data-policy="{{ inventory_police_temp }}" data-quantity="{{ variant.inventory_quantity }}" id="nm-{{ variant.id }}" name="updates[{{ variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/>{%- comment -%}
                                                     <div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ variant.id }}" id="nm-id-increase-nm-{{ variant.id }}">&plus;</div>
                                                   {%- endcomment -%}
                                                 </div>
