@@ -1,10 +1,10 @@
-{% if nm_easywholesale_showPrices %}
-  {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
-    <div class="nm-easywholesale-price {% if variant.inventory_quantity <= 0 and variant.available == false %}nm-price-outstock{% endif %} nm-primary-color" data-priceid="{{ variant.id }}">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
-        {{ variant_price | money }}{% endif %}
-      {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
-        <strike>{{ variant.compare_at_price | money }}</strike>
-      {% endif %}
-      {{ nm_easywholesale_textAfterPrice }}</div>
-  {% endunless %}
-{% endif %}
+<div class="nm-easywholesale-qty-container nm-easywholesale-qty-container-one">
+  <div class="nm-easywholesale-price nm-primary-color" data-priceid="{{ last_variant.id }}" style="font-size: initial; display: none;">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
+      {{ variant_price | money }}{% endif %}
+    {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
+      <strike>{{ variant.compare_at_price | money }}</strike>
+    {% endif %}
+    {{ nm_easywholesale_textAfterPrice }}</div>
+  <div class="nm-easywholesale-qty-decrease nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-decrease-nm-{{ last_variant.id }}">&minus;</div>
+  <input type="text" class="nm-easywholesale-qty nm-layout-text-color nm-layout-border-color" data-id="nm-{{ last_variant.id }}" data-price="{{ variant_price }}" value="0" data-policy="{{ inventory_police_temp }}" data-quantity="{{ last_variant.inventory_quantity }}" id="nm-{{ last_variant.id }}" name="updates[{{ last_variant.id }}]" {% if nm_easywholesale_callback_quantity %}{% include "wholesale-page-callback-quantity" %}{% endif %}/><div class="nm-easywholesale-qty-increase nm-layout-text-color" data-id="nm-{{ last_variant.id }}" id="nm-id-increase-nm-{{ last_variant.id }}">&plus;</div>
+</div>

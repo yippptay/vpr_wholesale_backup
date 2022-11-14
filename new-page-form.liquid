@@ -123,6 +123,7 @@
         border-bottom: 2px solid
     }
     .nm-easywholesale-item {
+        min-height: 41px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -290,8 +291,7 @@
     }
     .nm-easywholesale-page-footer {
         margin-top: 50px;
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #000
+        border: 1px solid #000
     }
     .nm-easywholesale-selected {
         padding-top: 10px;
@@ -663,42 +663,46 @@
         };
     </script>
 
-    {% assign nm_easywholesale_the_page = true %}
-    {% assign nm_easywholesale_goToCart = true %}
-    {% assign nm_easywholesale_showProductDescription = false %}
-    {% assign nm_wholesale_qtyStep_page = 1 %}
-    {% assign ShowCollectionHead = 0 %}
-    {% assign nm_easywholesale_colorCollectionHead = "" %}
-    {% assign nm_easywholesale_showProductImage = false %}
-    {% assign nm_easywholesale_showVariantImage = false %}
-    {% assign nm_easywholesale_variant_as_product = false %}
-    {% assign nm_easywholesale_showForm = true %} 
-    {% assign nm_easywholesale_showPrices = true %}
-    {% assign nm_easywholesale_showPricesOnly = true %}
-    {% assign nm_easywholesale_showProductSku = false %}
-    {% assign nm_easywholesale_showProductBarcode = false %}
-    {% assign nm_easywholesale_setLinkOnProductFoto = false %}
-    {% assign nm_easywholesale_textOutOfStock = "out of stock" %}
-    {% assign nm_easywholesale_limitStock = 10000 %}
-    {% assign nm_easywholesale_deleteTextOutOfStock = "" %}
-    {% assign nm_easywholesale_hidePricesProductIds = "" %}
-    {% assign nm_easywholesale_page_showCompareAtPrice = false %}
-    {% assign nm_easywholesale_textAfterPrice = "" %}
-    {% assign nm_easywholesale_textBeforePrice = "" %}
-    {% assign nm_easywholesale_cartCountId = "" %}
-    {% assign nm_easywholesale_cartTextAdded = "Added" %}
-    {% assign collection_order = "" %}
-    {% assign collection_order_add = "" %}
-    {% assign nm_easywholesale_pleasewait_now = false %}
-    {% assign nm_easywholesale_textSearch = "Search for items..." %}
-    {% assign nm_easywholesale_setLinkOnProductTitle = true %}
-    {% assign nm_easywholesale_setLinkOnVariantTitle = false %}
-    {% assign nm_easywholesale_add_to_cart = "Add to cart" %}
-    {% assign nm_easywholesale_showAllOutOfStock = false %}
-    {% assign nm_easywholesale_showViewOtherLink = true %}
-    {% assign nm_easywholesale_showAllVariants = 1 %}
-    {% assign nm_easywholesale_LayoutCountVariantsShow = 1| minus: 1 %}
-    {% assign nm_easywholesale_ViewOtherVariantsText = "View other %%count_variants%% variants" %}
+{% assign nm_easywholesale_the_page = true %}
+{% assign nm_easywholesale_goToCart = true %}
+{% assign nm_easywholesale_showProductDescription = false %}
+{% assign nm_wholesale_qtyStep_page = 1 %}
+{% assign ShowCollectionHead = 0 %}
+{% assign nm_easywholesale_colorCollectionHead = "" %}
+{% assign nm_easywholesale_showProductImage = true %}
+{% assign nm_easywholesale_showVariantImage = true %}
+{% assign nm_easywholesale_variant_as_product = false %}
+{% assign nm_easywholesale_showForm = true %} 
+{% assign nm_easywholesale_showPrices = true %}
+{% assign nm_easywholesale_showPricesOnly = true %}
+{% assign nm_easywholesale_showProductSku = false %}
+{% assign nm_easywholesale_showProductBarcode = false %}
+{% assign nm_easywholesale_setLinkOnProductFoto = false %}
+{% assign nm_easywholesale_textOutOfStock = "out of stock" %}
+{% assign nm_easywholesale_limitStock = 10000 %}
+{% assign nm_easywholesale_deleteTextOutOfStock = "" %}
+{% assign nm_easywholesale_hidePricesProductIds = "" %}
+{% assign nm_easywholesale_page_showCompareAtPrice = false %}
+{% assign nm_easywholesale_textAfterPrice = "" %}
+{% assign nm_easywholesale_textBeforePrice = "" %}
+{% assign nm_easywholesale_cartCountId = "" %}
+{% assign nm_easywholesale_cartTextAdded = "Added" %}
+{% assign collection_order = "" %}
+{% assign collection_order_add = "" %}
+{% assign nm_easywholesale_pleasewait_now = false %}
+
+{% assign nm_easywholesale_textSearch = "Search..." %}
+
+
+{% assign nm_easywholesale_setLinkOnProductTitle = true %}
+{% assign nm_easywholesale_setLinkOnVariantTitle = false %}
+{% assign nm_easywholesale_add_to_cart = "Add" %}
+{% assign nm_easywholesale_showAllOutOfStock = false %}
+{% assign nm_easywholesale_showViewOtherLink = true %}
+
+{% assign nm_easywholesale_showAllVariants = 1 %}
+{% assign nm_easywholesale_LayoutCountVariantsShow = 1| minus: 1 %}
+{% assign nm_easywholesale_ViewOtherVariantsText = "View other %%count_variants%% variants" %}
 
 {% unless customer %}
 	{% assign nm_easywholesale_showPrices = false %}
@@ -843,7 +847,7 @@ function nm_wholesale_show_spinner()
 <script>document.getElementById("nm-easywholesale-select-search-container").style.display = "flex";</script>
 {% endif %} 
 
-<div class="nm-easywholesale-item nm-layout-border-color" style="margin-top: 24px; border-top: 1px solid; color: white; background-color: #e35432;">
+<div class="nm-easywholesale-item nm-layout-border-color" style="max-height: 30px !important; margin-top: 24px; border-top: 1px solid; color: white; background-color: #e35432;">
     <div class="nm-easywholesale-name" style="width: 50%">
         <strong>
         PRODUCT TITLE
@@ -937,7 +941,7 @@ function nm_wholesale_show_spinner()
                             {% assign set_foto = 0 %}
                             
                             {% for variant in product_temp.variants %}
-                                {% unless variant.inventory_policy == "deny" and variant.inventory_quantity <= 0 and variant.inventory_management == "shopify" %}
+                                {% unless variant.inventory_policy == "deny" and variant.inventory_management == "shopify" %}
                                   	{% if variant.available %}
                             			{% if variant.image and nm_easywholesale_showVariantImage %}
                             				{% assign set_foto = 1 %}
@@ -1191,9 +1195,15 @@ function nm_wholesale_show_spinner()
                                                 {% if nm_easywholesale_showPrices %}
                                                     {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
                                                         <div class="nm-easywholesale-price {% if variant.inventory_quantity <= 0 and variant.available == false %}nm-price-outstock{% endif %} nm-primary-color" data-priceid="{{ variant.id }}">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
-                                                            {{ variant_price | money }}{% endif %}
+                                                            {% include 'wcp_discount' with product %}
+                                                            {% include 'wcp_variant' with variant %}
+                                                            {% include 'wcp_vd_product' with product %}
+                                                            {{ wcp_v_price | money }}{% endif %}
                                                         {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
-                                                            <strike>{{ variant.compare_at_price | money }}</strike>
+                                                            {% include 'wcp_discount' with product %}
+                                                            {% include 'wcp_variant' with variant %}
+                                                            {% include 'wcp_vd_product' with product %}
+                                                            <strike>{{ wcp_v_compare_at_price | money }}</strike>
                                                         {% endif %}
                                                         {{ nm_easywholesale_textAfterPrice }}</div>
                                                     {% endunless %}
@@ -1203,9 +1213,15 @@ function nm_wholesale_show_spinner()
                                         </div>
 
                                             {%- comment -%} IN STOCK {%- endcomment -%}
-                                        {% if last_variant.inventory_quantity > 0  or nm_easywholesale_showAllOutOfStock %}
+                                        {% if last_variant.inventory_quantity > 0 %}
                                             <div class="in-stock" style="width: 12.5%; text-align: center; font-size: small;">
                                                 <strong><i><mark>&nbsp;&nbsp;&nbsp;In Stock&nbsp;&nbsp;&nbsp;</mark></i></strong>
+                                            </div>
+
+                                            {% else %}
+
+                                            <div class="in-stock" style="width: 12.5%; text-align: center; font-size: small; filter: saturate(0%);">
+                                                <strong><i><mark>&nbsp;&nbsp;&nbsp;Back Ordered&nbsp;&nbsp;&nbsp;</mark></i></strong>
                                             </div>
                                         {% endif %}
 
@@ -1543,7 +1559,22 @@ function nm_wholesale_show_spinner()
 {% assign variant_price = variant.price %}           
 {% if nm_easywholesale_callback_price %}{% capture the_snippet_content %}{% include "wholesale-page-callback-price", typ: "variant" %}{% endcapture %}{% endif %} 
                                         
-                                            {% if nm_easywholesale_showPrices %}{% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}<div class="nm-easywholesale-price {% if variant.inventory_quantity <= 0 and variant.available == false %}nm-price-outstock{% endif %} nm-primary-color" data-priceid="{{ variant.id }}">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}{{ variant_price | money }}{% endif %}{% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %} <strike>{{ variant.compare_at_price | money }}</strike>{% endif %}{{ nm_easywholesale_textAfterPrice }}</div>{% endunless %}{% endif %}
+                                            {% if nm_easywholesale_showPrices %}
+                                                {% unless nm_easywholesale_hidePricesProductIds contains product_temp.id %}
+                                                    <div class="nm-easywholesale-price {% if variant.inventory_quantity <= 0 and variant.available == false %}nm-price-outstock{% endif %} nm-primary-color" data-priceid="{{ variant.id }}">{{ nm_easywholesale_textBeforePrice }}{% if nm_easywholesale_showPricesOnly %}
+                                                        {% include 'wcp_discount' with product %}
+                                                        {% include 'wcp_variant' with variant %}
+                                                        {% include 'wcp_vd_product' with product %}
+                                                        {{ wcp_v_price | money }}{% endif %}
+                                                    {% if variant.compare_at_price > variant_price and nm_easywholesale_page_showCompareAtPrice %}
+                                                        {% include 'wcp_discount' with product %}
+                                                        {% include 'wcp_variant' with variant %}
+                                                        {% include 'wcp_vd_product' with product %}
+                                                        <strike>{{ wcp_v_compare_at_price | money }}</strike>
+                                                    {% endif %}
+                                                    {{ nm_easywholesale_textAfterPrice }}</div>
+                                                {% endunless %}
+                                            {% endif %}
                                         </div>
                                       </div>
 
